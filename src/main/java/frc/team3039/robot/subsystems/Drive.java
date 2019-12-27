@@ -37,9 +37,9 @@ import frc.team3039.utility.lib.trajectory.timing.TimedState;
 public class Drive extends Subsystem {
 	private static Drive mInstance = new Drive();
 
-	public static enum DriveControlMode {
+	public enum DriveControlMode {
 		JOYSTICK, HOLD, MANUAL, VELOCITY_SETPOINT, CAMERA_TRACK, PATH_FOLLOWING, OPEN_LOOP
-	};
+	}
 
 	// One revolution of the wheel = Pi * D inches = 4096 ticks
 	// Track Width Flange to Flange Measurement
@@ -54,7 +54,7 @@ public class Drive extends Subsystem {
 	// private long periodMs = (long) (Constants.kLooperDt * 1000.0);
 
 	// Motor controllers
-	private ArrayList<TalonSRXEncoder> motorControllers = new ArrayList<TalonSRXEncoder>();
+	private ArrayList<TalonSRXEncoder> motorControllers = new ArrayList<TalonSRXEncoder>(); //TODO Check
 	private TalonSRXEncoder leftDrive1;
 	private TalonSRX leftDrive2;
 	private TalonSRX leftDrive3;
@@ -101,6 +101,7 @@ public class Drive extends Subsystem {
 
 				if (currentControlMode == DriveControlMode.JOYSTICK) {
 					// driveWithJoystick();
+					System.out.println("Drive with Joysticks");
 				} else if (!isFinished()) {
 					// readPeriodicInputs();
 					switch (currentControlMode) {
@@ -119,8 +120,6 @@ public class Drive extends Subsystem {
 						System.out.println("Unknown drive control mode: " + currentControlMode);
 						break;
 					}
-				} else {
-					// hold in current state
 				}
 			}
 		}
@@ -287,7 +286,7 @@ public class Drive extends Subsystem {
 	}
 
 	public void endGyroCalibration() {
-		if (isCalibrating == true) {
+		if (isCalibrating) {
 			isCalibrating = false;
 		}
 	}
@@ -345,10 +344,7 @@ public class Drive extends Subsystem {
 
 	public boolean checkPitchAngle() {
 		double pitchAngle = Math.abs(getGyroPitchAngle());
-		if (pitchAngle > 10) {
-			return true;
-		}
-		return false;
+		return pitchAngle > 10;
 	}
 
 	public synchronized void resetGyro() {
@@ -420,7 +416,7 @@ public class Drive extends Subsystem {
 		if (mMotionPlanner == null) {
 			return false;
 		}
-		return mMotionPlanner.isDone() || mOverrideTrajectory == true
+		return mMotionPlanner.isDone() || mOverrideTrajectory
 				|| mDriveControlMode != DriveControlMode.PATH_FOLLOWING;
 	}
 
@@ -527,7 +523,7 @@ public class Drive extends Subsystem {
 	public synchronized void setControlMode(DriveControlMode controlMode) {
 		this.mDriveControlMode = controlMode;
 		if (controlMode == DriveControlMode.HOLD) {
-			// mpStraightController.setPID(mpHoldPIDParams, kPositionControlSlot); //Check
+			// mpStraightController.setPID(mpHoldPIDParams, kPositionControlSlot); //TODO Check
 			leftDrive1.setPosition(0);
 			leftDrive1.set(ControlMode.Position, 0);
 			rightDrive1.setPosition(0);
@@ -584,7 +580,7 @@ public class Drive extends Subsystem {
 	// }
 
 	public boolean checkSystem() {
-		boolean leftSide = TalonSRXChecker.CheckTalons(this, new ArrayList<TalonSRXChecker.TalonSRXConfig>() {
+		boolean leftSide = TalonSRXChecker.CheckTalons(this, new ArrayList<TalonSRXChecker.TalonSRXConfig>() { //TODO Check
 			/**
 			 *
 			 */
@@ -604,8 +600,7 @@ public class Drive extends Subsystem {
 				mRPMSupplier = () -> leftDrive1.getSelectedSensorVelocity(0);
 			}
 		});
-
-		boolean rightSide = TalonSRXChecker.CheckTalons(this, new ArrayList<TalonSRXChecker.TalonSRXConfig>() {
+		boolean rightSide = TalonSRXChecker.CheckTalons(this, new ArrayList<TalonSRXChecker.TalonSRXConfig>() { //TODO Check
 			/**
 			 *
 			 */
@@ -664,11 +659,12 @@ public class Drive extends Subsystem {
 				SmartDashboard.putNumber("theta err", mPeriodicIO.error.getRotation().getDegrees());
 
 			} catch (Exception e) {
+				System.out.println("Desired Mode Error");
 			}
 		} else if (operationMode == DesiredMode.COMPETITION) {
 
 			if (getHeading() != null) {
-				// SmartDashboard.putNumber("Gyro Heading", getHeading().getDegrees());
+				SmartDashboard.putNumber("Gyro Heading", getHeading().getDegrees());
 			}
 
 		}

@@ -1,12 +1,11 @@
 package frc.team3039.robot.auto;
 
-import java.util.ArrayList;
-
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.team3039.robot.auto.AutoModeEndedException;
 import frc.team3039.robot.auto.actions.Action;
 import frc.team3039.robot.auto.actions.NoopAction;
 import frc.team3039.utility.lib.trajectory.LazyLoadTrajectory;
+
+import java.util.ArrayList;
 
 /**
  * An abstract class that is the basis of the robot's autonomous routines. This
@@ -28,7 +27,7 @@ public abstract class AutoRoutineBase {
         for (LazyLoadTrajectory trajectory : trajectories) {
             trajectory.activate();
         }
-    };
+    }
 
     protected abstract void routine() throws AutoModeEndedException;
 
@@ -62,7 +61,8 @@ public abstract class AutoRoutineBase {
             throw new AutoModeEndedException();
         }
 
-        return isActive();
+//        return isActive();
+        return true;
     }
 
     public void waitForDriverConfirm() throws AutoModeEndedException {
