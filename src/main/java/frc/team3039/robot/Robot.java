@@ -7,9 +7,6 @@
 
 package frc.team3039.robot;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +20,9 @@ import frc.team3039.robot.subsystems.Drive.DriveControlMode;
 import frc.team3039.robot.subsystems.RobotStateEstimator;
 import frc.team3039.utility.CrashTracker;
 import frc.team3039.utility.lib.geometry.Pose2d;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 public class Robot extends TimedRobot {
 	// public static OI oi;
@@ -164,6 +164,7 @@ public class Robot extends TimedRobot {
 
 		outputToSmartDashboard();
 		try {
+			System.out.println("Error in Autonomous Periodic");
 
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
@@ -189,11 +190,11 @@ public class Robot extends TimedRobot {
 			mDrive.endGyroCalibration();
 
 			if (mOperationMode == DesiredMode.COMPETITION) {
-				// Robot.elevator.setJoystickPID();
+				System.out.println("TeleOp Init Competition Mode");
 			}
 
 			if (mOperationMode != DesiredMode.COMPETITION) {
-				// Scheduler.getInstance().add(new ElevatorAutoZeroSensor());
+				System.out.println("TeleOp Init Test Modes");
 			}
 
 			RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
@@ -205,7 +206,7 @@ public class Robot extends TimedRobot {
 		}
 	}
 
-	// Called constantly through teleOp
+	// Called constantly through TeleOp
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putString("Match Cycle", "TELEOP");
@@ -213,6 +214,26 @@ public class Robot extends TimedRobot {
 		try {
 
 			outputToSmartDashboard();
+		} catch (Throwable t) {
+			CrashTracker.logThrowableCrash(t);
+			throw t;
+		}
+	}
+
+	@Override
+	public void testInit() {
+		try {
+			CrashTracker.logTestInit();
+			System.out.println("Starting check systems.");
+
+			mDisabledLooper.stop();
+			mEnabledLooper.stop();
+
+			if (mSubsystemManager.checkSubsystems()) {
+				System.out.println("ALL SYSTEMS PASSED");
+			} else {
+				System.out.println("CHECK ABOVE OUTPUT SOME SYSTEMS FAILED!!!");
+			}
 		} catch (Throwable t) {
 			CrashTracker.logThrowableCrash(t);
 			throw t;
