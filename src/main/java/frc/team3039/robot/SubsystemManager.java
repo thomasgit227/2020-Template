@@ -25,6 +25,16 @@ public class SubsystemManager implements ILooper {
         mAllSubsystems.forEach((s) -> s.outputTelemetry(mAutoModeSelector.getDesiredMode()));
     }
 
+    public boolean checkSubsystems() {
+        boolean ret_val = true;
+
+        for (Subsystem s : mAllSubsystems) {
+            ret_val &= s.checkSystem();
+        }
+
+        return ret_val;
+    }
+
     public void writeToLog() {
         mAllSubsystems.forEach((s) -> s.writeToLog());
     }
