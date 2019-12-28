@@ -73,10 +73,8 @@ public class Drive extends Subsystem {
 	private double gyroOffsetDeg = 0;
 	protected Rotation2d mAngleAdjustment = Rotation2d.identity();
 
-	// Hardware states //Poofs
+	// Hardware states
 	private PeriodicIO mPeriodicIO;
-	// private boolean mAutoShift;
-	// private boolean mIsHighGear;
 	private boolean mIsBrakeMode;
 	private ReflectingCSVWriter<PeriodicIO> mCSVWriter = null;
 	private DriveMotionPlanner mMotionPlanner;
@@ -214,17 +212,17 @@ public class Drive extends Subsystem {
 		return rotations * (Constants.kDriveWheelDiameterInches * Math.PI);
 	}
 
-	// private static double rpmToInchesPerSecond(double rpm) {
-	// return rotationsToInches(rpm) / 60;
-	// }
+	 private static double rpmToInchesPerSecond(double rpm) {
+	 return rotationsToInches(rpm) / 60;
+	 }
 
-	// private static double inchesToRotations(double inches) {
-	// return inches / (Constants.kDriveWheelDiameterInches * Math.PI);
-	// }
+	 private static double inchesToRotations(double inches) {
+	 return inches / (Constants.kDriveWheelDiameterInches * Math.PI);
+	 }
 
-	// private static double inchesPerSecondToRpm(double inches_per_second) {
-	// return inchesToRotations(inches_per_second) * 60;
-	// }
+	 private static double inchesPerSecondToRpm(double inches_per_second) {
+	 return inchesToRotations(inches_per_second) * 60;
+	 }
 
 	private static double radiansPerSecondToTicksPer100ms(double rad_s) {
 		return rad_s / (Math.PI * 2.0) * 4096.0 / 10.0;
