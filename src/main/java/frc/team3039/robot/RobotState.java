@@ -21,9 +21,6 @@ public class RobotState {
 
     private static final int kObservationBufferSize = 100;
 
-    // private static final Pose2d kVehicleToLidar = new Pose2d(
-    // new Translation2d(Constants.kLidarXOffset, Constants.kLidarYOffset),
-    // Rotation2d.fromDegrees(Constants.kLidarYawAngleDegrees));
 
     // FPGATimestamp -> RigidTransform2d or Rotation2d
     private InterpolatingTreeMap<InterpolatingDouble, Pose2d> field_to_vehicle_;
@@ -103,7 +100,6 @@ public class RobotState {
     public void outputTelemetry(DesiredMode operationMode) {
         if (operationMode == DesiredMode.COMPETITION) {
             Pose2d odometry = getLatestFieldToVehicle().getValue();
-            // Pose2d odometry = getFieldToVehicle();
             SmartDashboard.putNumber("Robot Pose X", odometry.getTranslation().x());
             SmartDashboard.putNumber("Robot Pose Y", odometry.getTranslation().y());
             SmartDashboard.putNumber("Robot Pose Theta", odometry.getRotation().getDegrees());
