@@ -9,6 +9,10 @@ The code is divided into several packages, each responsible for a different aspe
 * Path following with a nonlinear feedback controller and splines
     
     To control autonomous driving, the robot utilizes a [nonlinear feedback controller](https://github.com/JoshLew7/2020-Templete/blob/master/src/main/java/frc/team3039/robot/planners/DriveMotionPlanner.java) and drives paths constructed of [Quintic Hermite Splines](https://github.com/JoshLew7/2020-Templete/blob/master/src/main/java/frc/team3039/utility/lib/spline/QuinticHermiteSpline.java).
+    
+* Path generation and visualization via Java app
+
+    [Hawk Path](https://github.com/JoshLew7/2020-Template/tree/master/src/main/java/frc/team3039/path), an external Java webapp, is used for fast and simple path creation. The app allows a user to create and visualize autonomous paths.
 
 ## Getting Started
   ### General
