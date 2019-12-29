@@ -1,6 +1,6 @@
 package frc.team3039.robot.subsystems;
 
-import frc.team3039.robot.AutoModeSelector.DesiredMode;
+import frc.team3039.robot.AutoRoutineSelector.DesiredMode;
 import frc.team3039.robot.Kinematics;
 import frc.team3039.robot.RobotState;
 import frc.team3039.robot.loops.ILooper;

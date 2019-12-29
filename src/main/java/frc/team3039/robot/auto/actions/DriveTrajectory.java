@@ -1,8 +1,8 @@
 package frc.team3039.robot.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.team3039.robot.AutoModeSelector;
-import frc.team3039.robot.AutoModeSelector.StartingPosition;
+import frc.team3039.robot.AutoRoutineSelector;
+import frc.team3039.robot.AutoRoutineSelector.StartingPosition;
 import frc.team3039.robot.RobotState;
 import frc.team3039.robot.subsystems.Drive;
 import frc.team3039.utility.lib.geometry.Pose2d;
@@ -15,7 +15,7 @@ import frc.team3039.utility.lib.trajectory.timing.TimedState;
 
 public class DriveTrajectory implements Action {
     private final LazyLoadTrajectory mLazyLoadTrajectory;
-    private AutoModeSelector mAutoModeSelector;
+    private AutoRoutineSelector mAutoRoutineSelector;
     private RobotState mRobotState;
     private final boolean mResetPose;
     private final boolean mResetXYPose;
@@ -54,14 +54,14 @@ public class DriveTrajectory implements Action {
     public void start() {
         MirroredTrajectory mirroredTrajectory = mLazyLoadTrajectory.getTrajectory();
         TrajectoryIterator<TimedState<Pose2dWithCurvature>> mTrajectory = null;
-        if (mAutoModeSelector.getStartingPosition() == StartingPosition.RIGHT) {
+        if (mAutoRoutineSelector.getStartingPosition() == StartingPosition.RIGHT) {
             mTrajectory = new TrajectoryIterator<TimedState<Pose2dWithCurvature>>(
                     new TimedView<>(mirroredTrajectory.right));
         } else {
             mTrajectory = new TrajectoryIterator<TimedState<Pose2dWithCurvature>>(
                     new TimedView<>(mirroredTrajectory.left));
         }
-        System.out.println("Starting trajectory on " + mAutoModeSelector.getStartingPosition() + " side! (length="
+        System.out.println("Starting trajectory on " + mAutoRoutineSelector.getStartingPosition() + " side! (length="
                 + mTrajectory.getRemainingProgress() + ")");
         if (mResetPose) {
             mRobotState.reset(Timer.getFPGATimestamp(), mTrajectory.getState().state().getPose());

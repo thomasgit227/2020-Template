@@ -16,7 +16,7 @@ import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team3039.robot.AutoModeSelector.DesiredMode;
+import frc.team3039.robot.AutoRoutineSelector.DesiredMode;
 import frc.team3039.robot.Constants;
 import frc.team3039.robot.RobotMap;
 import frc.team3039.robot.RobotState;

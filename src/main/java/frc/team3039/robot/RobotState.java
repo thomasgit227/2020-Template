@@ -3,8 +3,7 @@ package frc.team3039.robot;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team3039.robot.AutoModeSelector.DesiredMode;
-import frc.team3039.robot.Kinematics;
+import frc.team3039.robot.AutoRoutineSelector.DesiredMode;
 import frc.team3039.robot.subsystems.Drive;
 import frc.team3039.utility.InterpolatingDouble;
 import frc.team3039.utility.InterpolatingTreeMap;

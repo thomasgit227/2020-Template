@@ -10,7 +10,7 @@ package frc.team3039.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team3039.robot.AutoModeSelector.DesiredMode;
+import frc.team3039.robot.AutoRoutineSelector.DesiredMode;
 import frc.team3039.robot.auto.AutoModeExecutor;
 import frc.team3039.robot.auto.AutoRoutineBase;
 import frc.team3039.robot.loops.Looper;
@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
 	private Looper mDisabledLooper = new Looper();
 
 	private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
-	private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
+	private AutoRoutineSelector mAutoRoutineSelector = new AutoRoutineSelector();
 	private AutoModeExecutor mAutoModeExecutor;
 	private DesiredMode mOperationMode;
 
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 			mSubsystemManager.registerDisabledLoops(mDisabledLooper);
 
 			mTrajectoryGenerator.generateTrajectories();
-			mAutoModeSelector.updateModeCreator();
+			mAutoRoutineSelector.updateModeCreator();
 
 			zeroAllSensors();
 
@@ -100,8 +100,8 @@ public class Robot extends TimedRobot {
 			RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
 
 			// Reset all auto mode state.
-			mAutoModeSelector.reset();
-			mAutoModeSelector.updateModeCreator();
+			mAutoRoutineSelector.reset();
+			mAutoRoutineSelector.updateModeCreator();
 			mAutoModeExecutor = new AutoModeExecutor();
 
 			mDisabledLooper.start();
@@ -118,11 +118,11 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("Match Cycle", "DISABLED");
 
 		try {
-			mOperationMode = mAutoModeSelector.getDesiredMode();
+			mOperationMode = mAutoRoutineSelector.getDesiredMode();
 			outputToSmartDashboard();
-			mAutoModeSelector.updateModeCreator();
+			mAutoRoutineSelector.updateModeCreator();
 
-			Optional<AutoRoutineBase> autoMode = mAutoModeSelector.getAutoMode();
+			Optional<AutoRoutineBase> autoMode = mAutoRoutineSelector.getAutoMode();
 			if (autoMode.isPresent() && autoMode.get() != mAutoModeExecutor.getAutoMode()) {
 				System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
 				mAutoModeExecutor.setAutoMode(autoMode.get());

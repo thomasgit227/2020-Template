@@ -14,7 +14,7 @@ import frc.team3039.robot.subsystems.Subsystem;
 public class SubsystemManager implements ILooper {
 
     private final List<Subsystem> mAllSubsystems;
-    private AutoModeSelector mAutoModeSelector;
+    private AutoRoutineSelector mAutoRoutineSelector;
     private List<Loop> mLoops = new ArrayList<>();
 
     public SubsystemManager(List<Subsystem> allSubsystems) {
@@ -22,7 +22,7 @@ public class SubsystemManager implements ILooper {
     }
 
     public void outputToSmartDashboard() {
-        mAllSubsystems.forEach((s) -> s.outputTelemetry(mAutoModeSelector.getDesiredMode()));
+        mAllSubsystems.forEach((s) -> s.outputTelemetry(mAutoRoutineSelector.getDesiredMode()));
     }
 
     public boolean checkSubsystems() {

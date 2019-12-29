@@ -14,12 +14,12 @@ import frc.team3039.robot.auto.routines.AutoRocketQualification;
 import frc.team3039.robot.auto.routines.AutoTest;
 import frc.team3039.robot.auto.routines.AutoTestControlFlow;
 
-/* AutoModeSelector is where the auto selection and processing takes place. Available options are a Starting position a
+/* AutoRoutineSelector is where the auto selection and processing takes place. Available options are a Starting position a
     DesiredMode which is used to change robot action at the start of autonomous of teleOp and the AutoRoutine that you
     would like to run.
  */
 
-public class AutoModeSelector {
+public class AutoRoutineSelector {
 
     public enum StartingPosition {
         LEFT, RIGHT, CENTER
@@ -44,7 +44,7 @@ public class AutoModeSelector {
 
     private Optional<AutoRoutineBase> mAutoMode = Optional.empty();
 
-    public AutoModeSelector() {
+    public AutoRoutineSelector() {
         mStartPositionChooser = new SendableChooser<StartingPosition>();
         mStartPositionChooser.setDefaultOption("Left", StartingPosition.LEFT);
         mStartPositionChooser.addOption("Right", StartingPosition.RIGHT);
