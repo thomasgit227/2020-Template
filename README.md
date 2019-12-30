@@ -34,7 +34,8 @@ The code is divided into several packages, each responsible for a different aspe
     If you used the Use This Template button, you can open the repository through the Open Project through version control option
     or
     Run ./gradlew idea
-    Open the 2020-Template.ipr file with IntelliJ
+    Open the 2020-Template folder
+    Look at general for libaries imports
     Building/Deploying to the Robot
     Run ./gradlew build to build the code. Use the --info flag for more details
     Run ./gradlew deploy to deploy to the robot in Terminal (Mac) or Powershell (Windows)
